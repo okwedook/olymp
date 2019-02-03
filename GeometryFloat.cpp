@@ -1,67 +1,25 @@
+bool eq(ld a, ld b) { return abs(a - b) < eps; }
+
 struct vec {
 	ld x, y;
-	vec() { x = y = 0; }
-	vec(ld x, ld y) {
-		this->x = x;
-		this->y = y;
-	}
-	bool eq(ld a, ld b) {
-		return fabs(a - b) < eps;
-	}
-	ld len2() {
-		return x * x + y * y;
-	}
-	ld len() {
-		return sqrt(len2());
-	}
-	vec orth() {
-		return vec(-y, x);
-	}
-	vec operator+(const vec &a) const {
-		return vec(x + a.x, y + a.y);
-	}
-	vec operator-(const vec &a) const {
-		return vec(x - a.x, y - a.y);
-	}
-	vec operator-() {
-		return vec(-x, -y);
-	}
-	vec operator*(ld k) {
-		return vec(x * k, y * k);
-	}
-	vec operator/(ld k) {
-		return vec(x / k, y / k);
-	}
-	vec norm() {
-		ld l = len();
-		if (eq(l, 0)) return vec(1, 0);
-		return *this / l;
-	}
-	vec rot(ld sina, ld cosa) {
-		return orth() * sina + *this * cosa;
-	}
-	vec rot(ld alpha) {
-		return rot(sin(alpha), cos(alpha));
-	}
-	bool operator==(const vec &a) const {
-		return eq(x, a.x) && eq(y, a.y);
-	}
-	bool operator<(const vec &a) const {
-		if (eq(x, a.x)) return y < a.y;
-		return x < a.x;
-	}
-	ld operator*(const vec &a) const {
-		return x * a.x + y * a.y;
-	}
-	ld operator/(const vec &a) const {
-		return x * a.y - y * a.x;
-	}
-	friend istream& operator>>(istream& stream, vec &a) {
-		stream >> a.x >> a.y;
-		return stream;
-	}
-	friend ostream& operator<<(ostream& stream, vec a) {
-		stream << a.x << ' ' << a.y;
-		return stream;
-	}
-};
+	vec(ld x = 0, ld y = 0) { this->x = x; this->y = y; }
+	vec operator+=(const vec &v) { x += v.x; y += v.y; return *this; }
+	vec operator-=(const vec &v) { x -= v.x; y -= v.y; return *this; }
+	vec operator*=(ld k) { x *= k; y *= k; return *this; }
+	vec operator/=(ld k) { x /= k; y /= k; return *this; }
+	vec operator-() const { return vec(-x, -y); }
+	vec orth() const { return vec(-y, x); }
+	ld len2() const { return x * x + y * y; }
+	ld len() const { return sqrt(len2()); }
+	friend vec operator+(vec a, const vec &b) { return a += b; }
+	friend vec operator-(vec a, const vec &b) { return a -= b; }
+	friend ld operator*(const vec &a, const vec &b) { return a.x * b.x + a.y * b.y; }
+	friend ld operator/(const vec &a, const vec &b) { return a.x * b.y - a.y * b.x; }
+	vec rot(ld sina, ld cosa) { return orth() * sina + *this * cosa; }
+	vec rot(ld alpha) { return rot(sin(alpha), cos(alpha)); }
+	friend istream& operator>>(istream& str, vec &v) { return str >> v.x >> v.y; }
+	friend ostream& operator<<(ostream& str, const vec &v) { return str << v.x << ' ' << v.y; }
+	friend bool operator==(const vec &a, const vec &b) { return eq(a.x, b.x) && eq(a.y, b.y); }
+	friend bool operator!=(const vec &a, const vec &b) { return !(a == b); }
+	friend bool operator<(const vec &a, const vec &b) { return (eq(a.x, b.x) ? a.y < b.y : a.x < b.x); }
+};	
