@@ -16,4 +16,5 @@ struct vec {
     friend ll operator/(const vec &a, const vec &b) { return a.x * b.y - a.y * b.x; }
     friend istream& operator>>(istream& str, vec &v) { return str >> v.x >> v.y; }
     friend ostream& operator<<(ostream& str, const vec &v) { return str << v.x << ' ' << v.y; }
+    friend bool operator<(const vec &a, const vec &b) { return a.x == b.x ? a.y < b.y : a.x < b.x; }
 };
