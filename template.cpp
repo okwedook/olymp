@@ -15,6 +15,7 @@
 #include <deque>
 #include <queue>
 #include <random>
+#include <cassert>
 
 using namespace std;
 
@@ -37,7 +38,7 @@ using namespace std;
 #define eps 1e-9
 #define mod 1000000007
 #define inf 3000000000000000007ll
-#define sz(a) int(a.size())
+#define sz(a) signed(a.size())
 #define all(a) a.begin(), a.end()
 #define rall(a) a.rbegin(), a.rend()
 #define shuffle(a) \
@@ -56,5 +57,6 @@ template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (
 
 signed main() {
     FAST; FIXED; RANDOM;
+
     return 0;
 }
