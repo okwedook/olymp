@@ -19,8 +19,8 @@
 
 using namespace std;
 
-#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define FIXED cout << fixed << setprecision(12);
+#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define FIXED cout << fixed << setprecision(12)
 #define RANDOM srand(94385)
 #define ll long long
 #define ld long double
