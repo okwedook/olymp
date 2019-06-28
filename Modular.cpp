@@ -23,4 +23,5 @@ struct zet {
     friend ostream& operator<<(ostream& stream, const zet &a) { return stream << a.val; }
     friend bool operator==(zet const &a, zet const &b) { return a.val == b.val; }
     friend bool operator!=(zet const &a, zet const &b) { return a.val != b.val; }
+    friend bool operator<(zet const &a, zet const &b) { return a.val < b.val; }
 };
