@@ -8,7 +8,7 @@ template<class T> struct sparse {
         int n = sz(a);
         for (int i = 0; i < n; ++i) v[0][i] = a[i];
         for (int l = 1; l < LOG; ++l) 
-            for (int i = 0; i + (1 << l) < n; ++i)
+            for (int i = 0; i + (1 << l) <= n; ++i)
                 v[l][i] = min(v[l - 1][i], v[l - 1][i + (1 << l - 1)]);
     }
     T get(int l, int r) {
