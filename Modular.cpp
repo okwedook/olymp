@@ -25,3 +25,9 @@ struct zet {
     friend bool operator!=(zet const &a, zet const &b) { return a.val != b.val; }
     friend bool operator<(zet const &a, zet const &b) { return a.val < b.val; }
 };
+
+struct zethash {
+    size_t operator()(const zet &z) const {
+        return z.val;
+    }
+};
