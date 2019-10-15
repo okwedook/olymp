@@ -42,9 +42,6 @@ using namespace std;
 #define sz(a) signed(a.size())
 #define all(a) a.begin(), a.end()
 #define rall(a) a.rbegin(), a.rend()
-#define shuffle(a) \
-    for (int i = 0; i < sz(a); ++i) \
-        swap(a[i], a[rand() % sz(a)]);
 
 template<class T, class U> inline void checkmin(T &x, U y) { if (y < x) x = y; }
 template<class T, class U> inline void checkmax(T &x, U y) { if (y > x) x = y; }
