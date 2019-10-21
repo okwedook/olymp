@@ -55,7 +55,7 @@ template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (
 template<class T> inline T sorted(T a) { sort(a); return a; }
 
 signed main() {
-    FAST; FIXED; RANDOM;
+	FAST; FIXED; RANDOM;
 
-    return 0;
+	return 0;
 }
