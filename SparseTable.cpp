@@ -5,7 +5,7 @@ struct sparse {
     vector<vector<T>> val;
     //array a must not be empty
     sparse(const vector<T> &a) {
-        N = sz(a), LOG = ceil(log2(N));
+        N = sz(a), LOG = log2(N) + 1;
         mx = vector<int>(N + 1);
         for (int i = 2; i < sz(mx); ++i) mx[i] = mx[i >> 1] + 1;
         val = vector<vector<T>>(LOG, vector<T>(N));
