@@ -83,8 +83,9 @@ struct Tree {
             t[v].unupdate();
         }
     }
+    // update [l, r) with value x, supports push
     template<class T>
-    void upd(int l, int r, const T &x, int v, int vl, int vr) {
+    void upd(int l, int r, const T &x, int v, int vl, int vr) { 
         if (vl >= r || vr <= l) return;
         if (vl >= l && vr <= r) return t[v].upd(x);
         push(v);
@@ -96,6 +97,7 @@ struct Tree {
     template<class T>
     void upd(int l, int r, const T &x) { upd(l, r, x, 1, 0, n); } 
     
+    // get at [l, r), supports push
     node get(int l, int r, int v, int vl, int vr) {
         if (vl >= r || vr <= l) return node();
         if (vl >= l && vr <= r) return t[v];
