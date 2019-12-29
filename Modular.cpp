@@ -1,6 +1,7 @@
 struct zet {
     int val;
-    zet(ll x = 0) { val = x % mod; if (val < 0) val += mod; }
+    explicit operator int() const { return val; }
+    zet(ll x = 0) { val = (x >= -mod && x < mod ? x : x % mod); if (val < 0) val += mod; }
     zet(ll a, ll b) { *this += a; *this /= b; }
 
     zet& operator+=(zet const &b) { val += b.val; if (val >= mod) val -= mod; return *this; }
@@ -24,10 +25,4 @@ struct zet {
     friend bool operator==(zet const &a, zet const &b) { return a.val == b.val; }
     friend bool operator!=(zet const &a, zet const &b) { return a.val != b.val; }
     friend bool operator<(zet const &a, zet const &b) { return a.val < b.val; }
-};
-
-struct zethash {
-    size_t operator()(const zet &z) const {
-        return z.val;
-    }
 };
