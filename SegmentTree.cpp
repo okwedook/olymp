@@ -28,6 +28,8 @@ template<class node, node (*merge)(const node&, const node&) = merge>
 struct Tree {
     int n = 1;
     node *t = nullptr;
+    node& operator[](int ind) { return t[ind + n]; }
+    const node& operator[](int ind) const { return t[ind + n]; }
     void submerge(int v) { // merge v's sons to v
         if (v >= n) return;
         t[v] = merge(t[v + v], t[v + v + 1]);
