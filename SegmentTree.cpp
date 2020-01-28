@@ -1,26 +1,27 @@
 struct node {
-    int val;
-    bool flag = false;
+    int val = 0, ind = 0;
+    int p = 0;
     node() {}
-    node(int x) : val(x) {}
+    node(int x) : ind(x) {}
     void upd(int x) {
-        val = x;
-        flag = true;
+        val += x;
+        p += x;
     }
     void upd(const node &t) {
-        upd(t.val);
+        upd(t.p);
     }
-    bool updated() {
-        return flag;
+    bool updated() const {
+        return p != 0;
     }
     void unupdate() {
-        flag = false;
+        p = 0;
     }
 };
 
 node merge(const node &a, const node &b) {
     node ans;
-    ans.val = max(a.val, b.val);
+    if (a.val >= b.val) ans.val = a.val, ans.ind = a.ind;
+    else ans.val = b.val, ans.ind = b.ind;
     return ans;
 }
 
@@ -43,6 +44,10 @@ struct Tree {
         for (int i = 0; i < 2 * n; ++i)
             t[i] = node();
     }
+    void build() {
+        for (int i = n - 1; i > 0; --i)
+            submerge(i);
+    }
     template<class T>
     void assign(const vector<T> &a) { // copy of a
         resize(sz(a));
@@ -50,8 +55,7 @@ struct Tree {
             t[i + n] = a[i];
         for (int i = sz(a); i < n; ++i)
             t[i + n] = node();
-        for (int i = n - 1; i > 0; --i)
-            submerge(i);
+        build();
     }
     ~Tree() { delete [] t; }
     Tree() {} // empty
