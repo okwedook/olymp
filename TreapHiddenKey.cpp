@@ -5,7 +5,7 @@ struct node {
     key k;
     int cnt = 1, p = rand();
     pnode l = nullptr, r = nullptr;
-    node(int k) { this->k = k; }
+    node(key k) { this->k = k; }
 };
 
 ostream& operator<<(ostream& str, pnode n) {
