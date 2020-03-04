@@ -45,9 +45,9 @@ using namespace std;
 #define rall(a) a.rbegin(), a.rend()
 
 #ifdef DEBUG
-  mt19937 gen(3498);
+	mt19937 gen(3498);
 #else
-  mt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
+	mt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
 #endif
 
 template<class T, class U> inline void checkmin(T &x, U y) { if (y < x) x = y; }
@@ -63,6 +63,6 @@ template<class T> inline T sorted(T a) { sort(a); return a; }
 
 signed main() {
 	FAST; FIXED;
-	
+
 	return 0;
 }
