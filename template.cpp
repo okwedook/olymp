@@ -18,12 +18,12 @@
 #include <complex>
 #include <random>
 #include <cassert>
+#include <chrono>
 
 using namespace std;
 
 #define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
 #define FIXED cout << fixed << setprecision(12)
-#define RANDOM srand(94385)
 #define ll long long
 #define ld long double
 #define pii pair<int, int>
@@ -44,6 +44,12 @@ using namespace std;
 #define all(a) a.begin(), a.end()
 #define rall(a) a.rbegin(), a.rend()
 
+#ifdef DEBUG
+  mt19937 gen(3498);
+#else
+  mt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
+#endif
+
 template<class T, class U> inline void checkmin(T &x, U y) { if (y < x) x = y; }
 template<class T, class U> inline void checkmax(T &x, U y) { if (y > x) x = y; }
 template<class T, class U> inline bool ifmax(T &x, U y) { if (y > x) return x = y, true; return false; }
@@ -56,7 +62,7 @@ template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (
 template<class T> inline T sorted(T a) { sort(a); return a; }
 
 signed main() {
-	FAST; FIXED; RANDOM;
-
+	FAST; FIXED;
+	
 	return 0;
 }
