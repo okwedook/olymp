@@ -45,7 +45,7 @@ using namespace std;
 #define rall(a) a.rbegin(), a.rend()
 
 #ifdef DEBUG
-	mt19937 gen(3498);
+	mt19937 gen(857204);
 #else
 	mt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
 #endif
@@ -63,6 +63,9 @@ template<class T> inline T sorted(T a) { sort(a); return a; }
 
 signed main() {
 	FAST; FIXED;
-
+	
+	#ifdef DEBUG
+		cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
+	#endif
 	return 0;
 }
