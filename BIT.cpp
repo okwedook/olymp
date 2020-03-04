@@ -7,6 +7,7 @@ template<class T> struct Fenv {
         fenv = new T[N];
         for (int i = 0; i < N; ++i) fenv[i] = 0;
     }
+	~Fenv() { delete [] fenv; }
     void add(int r, T x) { //adds x to a[r]
         for (; r < N; r |= r + 1) fenv[r] += x;
     }
