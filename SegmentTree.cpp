@@ -2,7 +2,6 @@ struct node {
     int val = 0, ind = 0;
     int p = 0;
     node() {}
-    node(int x) : ind(x) {}
     void upd(int x) {
         val += x;
         p += x;
@@ -28,7 +27,7 @@ node merge(const node &a, const node &b) {
 template<class node, node (*merge)(const node&, const node&) = merge>
 struct Tree {
     int n = 1;
-    node *t = nullptr;
+    vector<node> t;
     node& operator[](int ind) { return t[ind + n]; }
     const node& operator[](int ind) const { return t[ind + n]; }
     void submerge(int v) { // merge v's sons to v
@@ -37,8 +36,7 @@ struct Tree {
     }
     void resize(int sz) { // allocation
         while (n < sz) n <<= 1;
-        delete [] t;
-        t = new node[2 * n + 1];
+        t.resize(2 * n + 1);
     }
     void blank() { // default values
         for (int i = 0; i < 2 * n; ++i)
@@ -57,14 +55,13 @@ struct Tree {
             t[i + n] = node();
         build();
     }
-    ~Tree() { delete [] t; }
     Tree() {} // empty
     Tree(int sz) { resize(sz); blank(); } // size, default values
     template<class T> Tree(const vector<T> &a) { assign(a); } // copy of a
     template<class T>
     void updup(int i, const T &val) { // upd at i with val, doesn't support push
         i += n;
-        t[i] = val;
+        t[i].upd(val);
         for (i >>= 1; i > 0; i >>= 1)
             submerge(i);
     }
