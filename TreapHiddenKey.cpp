@@ -37,7 +37,7 @@ pnode merge(pnode a, pnode b) {
 
 void splitval(pnode t, key k, pnode &l, pnode &r) {
     if (!t) return void(l = r = t);
-    if (t->k > k) {
+    if (t->k >= k) {
         splitval(t->l, k, l, t->l);
         r = t;
     } else {
