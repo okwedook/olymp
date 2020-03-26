@@ -18,7 +18,9 @@ int getcnt(pnode n) {
 }
 
 void upd(pnode n) {
-    if (n) n->cnt = 1 + getcnt(n->l) + getcnt(n->r);
+    if (n) {
+        n->cnt = 1 + getcnt(n->l) + getcnt(n->r);
+    }
 }
 
 pnode merge(pnode a, pnode b) {
