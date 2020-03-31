@@ -1,5 +1,5 @@
 {
-    "cmd" : ["g++ -D DEBUG -fsanitize=address -std=c++17 $file_name -o $file_base_name && timeout 3s ./$file_base_name<input.txt>output.txt"],
+    "cmd" : ["g++ -O2 -D DEBUG -std=c++17 $file_name -o $file_base_name && timeout 3s ./$file_base_name<input.txt>output.txt"],
     "selector" : "source.cpp",
     "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
     "shell": true,
