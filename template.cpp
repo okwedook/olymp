@@ -50,6 +50,35 @@ using namespace std;
 	mt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
 #endif
 
+#ifdef DEBUG
+    template<class T> T to_dbg(T x) { return x; }
+    template<class T, class U> string to_dbg(pair<T, U> p) {
+        stringstream ss;
+        ss << '{' << p.f << ',' << p.s << '}';
+        return ss.str();
+    }
+    string to_dbg(string s) { return "\"" + s + "\""; }
+    template<class T> string to_dbg(vector<T> a) {
+        stringstream ss;
+        ss << '{';
+        if (sz(a)) ss << to_dbg(a[0]);
+        for (int i = 1; i < sz(a); ++i)
+            ss << "," << to_dbg(a[i]);
+        ss << '}';
+        return ss.str();
+    }
+    template<class T>
+    void dbgout(T x) { cout << to_dbg(x) << endl; }
+    template<class T, class... U>
+    void dbgout(T t, U... u) {
+        cout << to_dbg(t) << ", ";
+        dbgout(u...);
+    }
+    #define dbg(...) cout << "[" << #__VA_ARGS__ << "] = ", dbgout(__VA_ARGS__);
+#else
+    #define dbg(...) 0
+#endif
+
 template<class T, class U> inline void checkmin(T &x, U y) { if (y < x) x = y; }
 template<class T, class U> inline void checkmax(T &x, U y) { if (y > x) x = y; }
 template<class T, class U> inline bool ifmax(T &x, U y) { if (y > x) return x = y, true; return false; }
