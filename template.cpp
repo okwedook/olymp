@@ -38,11 +38,11 @@ using namespace std;
 #define hashmap unordered_map
 #define hashset unordered_set
 #define eps 1e-9
-#define mod 1000000007
+#define mod 10
 #define inf 3000000000000000007ll
-#define sz(a) signed(a.size())
-#define all(a) a.begin(), a.end()
-#define rall(a) a.rbegin(), a.rend()
+#define sz(a) signed((a).size())
+#define all(a) (a).begin(), (a).end()
+#define rall(a) (a).rbegin(), (a).rend()
 
 #ifdef DEBUG
     mt19937 gen(857204);
