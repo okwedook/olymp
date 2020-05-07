@@ -58,15 +58,20 @@ using namespace std;
         return ss.str();
     }
     string to_dbg(string s) { return "\"" + s + "\""; }
-    template<class T> string to_dbg(vector<T> a) {
+    template<class It> string to_dbg(It begin, It end) {
         stringstream ss;
         ss << '{';
-        if (sz(a)) ss << to_dbg(a[0]);
-        for (int i = 1; i < sz(a); ++i)
-            ss << "," << to_dbg(a[i]);
+        if (begin != end) ss << to_dbg(*begin++);
+        while (begin != end)
+            ss << "," << to_dbg(*begin++);
         ss << '}';
         return ss.str();
     }
+    template<class T> string to_dbg(vector<T> a) { return to_dbg(all(a)); }
+    template<class T> string to_dbg(set<T> a) { return to_dbg(all(a)); }
+    template<class T> string to_dbg(hashset<T> a) { return to_dbg(all(a)); }
+    template<class T, class U> string to_dbg(map<T, U> a) { return to_dbg(all(a)); }
+    template<class T, class U> string to_dbg(hashmap<T, U> a) { return to_dbg(all(a)); }
     template<class T>
     void dbgout(T x) { cout << to_dbg(x) << endl; }
     template<class T, class... U>
