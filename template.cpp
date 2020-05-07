@@ -84,10 +84,8 @@ using namespace std;
     #define dbg(...) 0
 #endif
 
-template<class T, class U> inline void checkmin(T &x, U y) { if (y < x) x = y; }
-template<class T, class U> inline void checkmax(T &x, U y) { if (y > x) x = y; }
-template<class T, class U> inline bool ifmax(T &x, U y) { if (y > x) return x = y, true; return false; }
-template<class T, class U> inline bool ifmin(T &x, U y) { if (y < x) return x = y, true; return false; }
+template<class T, class U> inline bool chmax(T &x, U y) { return x < y ? x = y, 1 : 0; }
+template<class T, class U> inline bool chmin(T &x, U y) { return x > y ? x = y, 1 : 0; }
 template<class T> inline void sort(T &a) { sort(all(a)); }
 template<class T> inline void rsort(T &a) { sort(rall(a)); }
 template<class T> inline void reverse(T &a) { reverse(all(a)); }
