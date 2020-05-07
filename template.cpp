@@ -98,6 +98,7 @@ template<class T, class ...U> void println(const T &x, const U& ... u) { cout <<
 
 signed main() {
     FAST; FIXED;
+    
     #ifdef DEBUG
         cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
     #endif
