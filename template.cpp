@@ -92,13 +92,13 @@ template<class T> inline void reverse(T &a) { reverse(all(a)); }
 template<class T, class U> inline istream& operator>>(istream& str, pair<T, U> &p) { return str >> p.f >> p.s; }
 template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (auto &i : a) str >> i; return str; }
 template<class T> inline T sorted(T a) { sort(a); return a; }
-template<class T, class ...U> void read(T &x, U& ... u) { cin >> x; read(u...); } void read() {}
-template<class T, class ...U> void print(const T &x, const U& ... u) { cout << x; print(u...); } void print() {}
-template<class T, class ...U> void println(const T &x, const U& ... u) { cout << x; println(u...); } void println() { cout << '\n'; }
+void read() {} void print() {} void println() { cout << '\n'; }
+template<class T, class ...U> void read(T &x, U& ... u) { cin >> x; read(u...); }
+template<class T, class ...U> void print(const T &x, const U& ... u) { cout << x; print(u...); }
+template<class T, class ...U> void println(const T &x, const U& ... u) { cout << x; println(u...); }
 
 signed main() {
     FAST; FIXED;
-    
     #ifdef DEBUG
         cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
     #endif
