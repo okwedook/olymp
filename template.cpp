@@ -38,7 +38,7 @@ using namespace std;
 #define hashmap unordered_map
 #define hashset unordered_set
 #define eps 1e-9
-#define mod 10
+#define mod 1000000007
 #define inf 3000000000000000007ll
 #define sz(a) signed((a).size())
 #define all(a) (a).begin(), (a).end()
@@ -58,22 +58,21 @@ using namespace std;
         return ss.str();
     }
     string to_dbg(string s) { return "\"" + s + "\""; }
-    template<class It> string to_dbg(It begin, It end) {
+    template<class It> string to_dbg(It begin, It end, string d = "") {
         stringstream ss;
         ss << '{';
         if (begin != end) ss << to_dbg(*begin++);
         while (begin != end)
-            ss << "," << to_dbg(*begin++);
+            ss << "," << d << to_dbg(*begin++);
         ss << '}';
         return ss.str();
     }
     template<class T> string to_dbg(vector<T> a) { return to_dbg(all(a)); }
     template<class T> string to_dbg(set<T> a) { return to_dbg(all(a)); }
     template<class T> string to_dbg(hashset<T> a) { return to_dbg(all(a)); }
-    template<class T, class U> string to_dbg(map<T, U> a) { return to_dbg(all(a)); }
-    template<class T, class U> string to_dbg(hashmap<T, U> a) { return to_dbg(all(a)); }
-    template<class T>
-    void dbgout(T x) { cout << to_dbg(x) << endl; }
+    template<class T, class U> string to_dbg(map<T, U> a) { return to_dbg(all(a), "\n"); }
+    template<class T, class U> string to_dbg(hashmap<T, U> a) { return to_dbg(all(a), "\n"); }
+    void dbgout() { cout << endl; }
     template<class T, class... U>
     void dbgout(T t, U... u) {
         cout << to_dbg(t) << ", ";
