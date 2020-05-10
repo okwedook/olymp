@@ -72,7 +72,7 @@ using namespace std;
     template<class T> string to_dbg(hashset<T> a) { return to_dbg(all(a)); }
     template<class T, class U> string to_dbg(map<T, U> a) { return to_dbg(all(a), "\n"); }
     template<class T, class U> string to_dbg(hashmap<T, U> a) { return to_dbg(all(a), "\n"); }
-    void dbgout() { cout << endl; }
+    template<class T> void dbgout(T x) { cout << to_dbg(x) << endl; }
     template<class T, class... U>
     void dbgout(T t, U... u) {
         cout << to_dbg(t) << ", ";
