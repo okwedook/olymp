@@ -8,7 +8,7 @@ vector<ll> dijkstra(vector<vector<pii>> &G, int v) {
         auto f = que.top();
         que.pop();
         for (auto i : G[f])
-            if (ifmin(ans[i.f], ans[f] + i.s))
+            if (chmin(ans[i.f], ans[f] + i.s))
                 que.push(i.f);
     }
     return ans;
