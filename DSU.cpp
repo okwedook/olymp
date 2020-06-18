@@ -1,14 +1,15 @@
-struct rnk {
-    int val = 1;
-    int get() const {
-        return val;
-    }
-    void add(const rnk &r) {
-        val += r.val;
-    }
-};
+
 
 struct dsu {
+    struct rnk {
+        int val = 1;
+        int get() const {
+            return val;
+        }
+        void add(const rnk &r) {
+            val += r.val;
+        }
+    };
     vector<int> p;
     vector<rnk> r;
     int comp = 0, edge = 0;
