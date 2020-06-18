@@ -1,5 +1,3 @@
-
-
 struct dsu {
     struct rnk {
         int val = 1;
