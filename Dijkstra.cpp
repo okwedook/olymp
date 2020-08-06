@@ -13,7 +13,7 @@ vector<ll> dijkstra(vector<vector<pii>> &G, int v) {
         for (auto i : G[f])
             if (chmin(ans[i.f], ans[f] + i.s)) {
                 que.push(i.f);
-                flag[f] = false;
+                flag[i.f] = false;
             }
     }
     return ans;
