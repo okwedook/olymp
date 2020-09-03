@@ -1,6 +1,6 @@
 struct num : vector<int> {
-    static const int base = 1e9;
-    static const int dig = 9;
+    static const int base = 1e3;
+    static const int dig = 3;
     bool minus = false;
     num() {}
     num(int x) { if (x < 0) minus = true, x = -x; while (x > 0) pb(x % base), x /= base; }
@@ -64,29 +64,6 @@ struct num : vector<int> {
     num cut(int l, int r) const {
         return num(begin() + l, begin() + r);
     }
-    num multiply(num a, num b) {
-        if (sz(a) == 0) return 0;
-        while (sz(a) < sz(b)) a.pb(0);
-        while (sz(b) < sz(a)) b.pb(0);
-        if (sz(a) == 1) return a[0] * (ll)b[0];
-        int m = sz(a) / 2;
-        num a1 = a.cut(0, m), a2 = a.cut(m, sz(a)),
-            b1 = b.cut(0, m), b2 = b.cut(m, sz(b));
-        num x1 = multiply(a1, b1), x2 = multiply(a2, b2);
-        num x3 = multiply(a1 + a2, b1 + b2);
-        x1.clr();
-        x2.clr();
-        x3 -= x1;
-        x3 -= x2;
-        return x2.powbase(m << 1) + x3.powbase(m) + x1;
-    }
-    num& operator*=(const num &x) {
-        bool flag = minus ^ x.minus;
-        *this = multiply(*this, x);
-        minus = flag;
-        clr();
-        return *this;
-    }
     num& operator/=(const num &x) {
         
     }
@@ -121,6 +98,60 @@ struct num : vector<int> {
     }
     friend ostream& operator<<(ostream& str, const num &x) {
         return str << to_string(x);
+    }
+
+    typedef complex<ld> bs;
+
+    void fft(vector<bs> &a, int n) {
+        int LOG = log2(n);
+        vector<int> ind(n);
+        for (int i = 1; i < n; ++i) {
+            int last = 31 - __builtin_clz(i);
+            ind[i] = ind[i ^ (1 << last)] | (1 << LOG - 1 - last);
+        }
+        vector<bs> cp(n);
+        for (int i = 0; i < n; ++i)
+            cp[i] = a[ind[i]];
+        std::swap(a, cp);
+        for (int len = 2; len <= n; len *= 2) {
+            bs w(cos(2 * M_PI / len), sin(2 * M_PI / len));
+            int l2 = len >> 1, mask = l2 - 1;
+            for (int i = 0; i < n; i += len) {
+                bs c(1, 0);
+                for (int j = 0; j < len; ++j) {
+                    cp[i + j] = a[i + (j & mask)] + a[i + l2 + (j & mask)] * c;
+                    c *= w;
+                }
+            }
+            std::swap(cp, a);
+        }
+    }
+
+    num& operator*=(const num &b) {
+        minus ^= b.minus;
+        vector<bs> fa(all(*this)), fb(all(b));
+        int x = 1;
+        while (x < sz(fa)) x *= 2;
+        while (x < sz(fb)) x *= 2;
+        x *= 2;
+        fa.resize(x);
+        fb.resize(x);
+        fft(fa, x);
+        fft(fb, x);
+        vector<bs> v(x);
+        for (int i = 0; i < x; ++i) v[i] = fa[i] * fb[i];
+        fft(v, x);
+        reverse(v.begin() + 1, v.end());
+        for (auto &i : v) i /= x;
+        ll was = 0;
+        clear();
+        for (auto i : v) {
+            was += (ll)(i.real() + 0.5);
+            pb(was % base);
+            was /= base;
+        }
+        clr();
+        return *this;
     }
 
     friend num mypow(num a, int n) {
