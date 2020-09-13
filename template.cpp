@@ -78,7 +78,7 @@ using namespace std;
         cout << to_dbg(t) << ", ";
         dbgout(u...);
     }
-    #define dbg(...) cout << "[" << #__VA_ARGS__ << "] = ", dbgout(__VA_ARGS__);
+    #define dbg(...) cout << "[" << #__VA_ARGS__ << "] = ", dbgout(__VA_ARGS__)
 #else
     #define dbg(...) 0
 #endif
