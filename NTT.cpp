@@ -56,7 +56,7 @@ struct NTT {
             }
         }
     }
-    vector<int> multiply(vector<int> &a, vector<int> &b) {
+    vector<int> multiply(vector<int> a, vector<int> b) {
         int n = 1;
         while (n < sz(a) || n < sz(b)) n *= 2;
         n *= 2;
