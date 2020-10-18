@@ -8,7 +8,6 @@ struct SCC {
                 rev[u].pb(v);
     }
     void addEdge(int from, int to) {
-        println(from, ' ', to);
         G[from].pb(to);
         rev[to].pb(from);
     }
@@ -37,9 +36,10 @@ struct SCC {
         for (int i = 0; i < sz(G); ++i)
             getorder(i);
         reverse(order);
-        dbg(order);
         used = vector<bool>(sz(G));
         color = vector<int>(sz(G));
+        ptr = 0;
+        cnt.clear();
         for (auto i : order)
             if (!used[i]) {
                 cnt.pb(0);
