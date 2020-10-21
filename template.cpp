@@ -44,6 +44,8 @@ using namespace std;
 #define sz(a) signed((a).size())
 #define all(a) (a).begin(), (a).end()
 #define rall(a) (a).rbegin(), (a).rend()
+#define chmin(a, b) (a > b ? a = b, 1 : 0)
+#define chmax(a, b) (a < b ? a = b, 1 : 0)
 
 #ifdef DEBUG
     mt19937 gen(857204);
@@ -97,8 +99,6 @@ template<class T, class ...U> void println(const T &x, const U& ... u) { print(x
     #define dbg(...) 0
 #endif
 
-template<class T, class U> inline bool chmax(T &x, U y) { return x < y ? x = y, 1 : 0; }
-template<class T, class U> inline bool chmin(T &x, U y) { return x > y ? x = y, 1 : 0; }
 template<class T> inline void sort(T &a) { sort(all(a)); }
 template<class T> inline void rsort(T &a) { sort(rall(a)); }
 template<class T> inline void reverse(T &a) { reverse(all(a)); }
