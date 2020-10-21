@@ -19,6 +19,7 @@
 #include <random>
 #include <cassert>
 #include <chrono>
+#include <functional>
 
 using namespace std;
 
@@ -50,35 +51,48 @@ using namespace std;
     mt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
 #endif
 
+void flush() { cout << flush; }
+void flushln() { cout << endl; }
+void println() { cout << '\n'; }
+template<class T> void print(const T &x) { cout << x; }
+template<class T> void read(T &x) { cin >> x; }
+template<class T, class ...U> void read(T &x, U& ... u) { read(x); read(u...); }
+template<class T, class ...U> void print(const T &x, const U& ... u) { print(x); print(u...); }
+template<class T, class ...U> void println(const T &x, const U& ... u) { print(x); println(u...); }
+
 #ifdef DEBUG
-    template<class T> T to_dbg(T x) { return x; }
-    template<class T, class U> string to_dbg(pair<T, U> p) {
-        stringstream ss;
-        ss << '{' << p.f << ',' << p.s << '}';
-        return ss.str();
+    template<class T> void pdbg(const T &x) { print(x); }
+    template<class T, class U> void pdbg(const pair<T, U> &p) {
+        print('{');
+        pdbg(p.f);
+        print(',');
+        pdbg(p.s); 
+        print('}');
     }
-    string to_dbg(string s) { return "\"" + s + "\""; }
-    template<class It> string to_dbg(It begin, It end, string d = "") {
-        stringstream ss;
-        ss << '{';
-        if (begin != end) ss << to_dbg(*begin++);
+    void pdbg(const string &s) { print("\"" + s + "\""); }
+    template<class It> void pdbg(It begin, It end, string d);
+    template<class T> void pdbg(const vector<T> &a) { pdbg(all(a), ""); }
+    template<class T> void pdbg(const vector<vector<T>> &a) { pdbg(all(a), "\n"); }
+    template<class T> void pdbg(const vector<vector<vector<T>>> &a) { pdbg(all(a), "\n\n"); }
+    template<class T> void pdbg(const set<T> &a) { pdbg(all(a), ""); }
+    template<class T> void pdbg(const hashset<T> &a) { pdbg(all(a), ""); }
+    template<class T, class U> void pdbg(const map<T, U> &a) { pdbg(all(a), ""); }
+    template<class T, class U> void pdbg(const hashmap<T, U> &a) { pdbg(all(a), ""); }
+    template<class It> void pdbg(It begin, It end, string d) {
+        print('{');
+        if (begin != end) pdbg(*begin++);
         while (begin != end)
-            ss << "," << d << to_dbg(*begin++);
-        ss << '}';
-        return ss.str();
+            print(",", d), pdbg(*begin++);
+        print('}');
     }
-    template<class T> string to_dbg(vector<T> a) { return to_dbg(all(a)); }
-    template<class T> string to_dbg(set<T> a) { return to_dbg(all(a)); }
-    template<class T> string to_dbg(hashset<T> a) { return to_dbg(all(a)); }
-    template<class T, class U> string to_dbg(map<T, U> a) { return to_dbg(all(a), "\n"); }
-    template<class T, class U> string to_dbg(hashmap<T, U> a) { return to_dbg(all(a), "\n"); }
-    template<class T> void dbgout(T x) { cout << to_dbg(x) << endl; }
+    template<class T> void dbgout(const T &x) { pdbg(x); }
     template<class T, class... U>
-    void dbgout(T t, U... u) {
-        cout << to_dbg(t) << ", ";
+    void dbgout(T const &t, const U &... u) {
+        pdbg(t);
+        print(", ");
         dbgout(u...);
     }
-    #define dbg(...) cout << "[" << #__VA_ARGS__ << "] = ", dbgout(__VA_ARGS__)
+    #define dbg(...) print("[", #__VA_ARGS__, "] = "), dbgout(__VA_ARGS__), flushln()
 #else
     #define dbg(...) 0
 #endif
@@ -91,16 +105,10 @@ template<class T> inline void reverse(T &a) { reverse(all(a)); }
 template<class T, class U> inline istream& operator>>(istream& str, pair<T, U> &p) { return str >> p.f >> p.s; }
 template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (auto &i : a) str >> i; return str; }
 template<class T> inline T sorted(T a) { sort(a); return a; }
-void println() { cout << '\n'; }
-template<class T> void print(const T &x) { cout << x; }
-template<class T> void read(T &x) { cin >> x; }
-template<class T, class ...U> void read(T &x, U& ... u) { read(x); read(u...); }
-template<class T, class ...U> void print(const T &x, const U& ... u) { print(x); print(u...); }
-template<class T, class ...U> void println(const T &x, const U& ... u) { print(x); println(u...); }
 
 signed main() {
     FAST; FIXED;
-    
+
     #ifdef DEBUG
         cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
     #endif
