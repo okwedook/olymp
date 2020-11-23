@@ -1,51 +1,81 @@
 struct SCC {
     graph G, rev;
-    SCC(int n) : G(graph(n)), rev(graph(n)) {}
+    SCC(int n) { G.resize(n); rev.resize(n); }
     SCC(const graph &_G) : G(_G) {
         rev.resize(sz(G));
-        for (int v = 0; v < sz(G); ++v)
-            for (auto u : G[v])
-                rev[u].pb(v);
+        for (int i = 0; i < sz(G); ++i)
+            for (auto v : G[i])
+                rev[v].pb(i);
     }
-    void addEdge(int from, int to) {
-        G[from].pb(to);
-        rev[to].pb(from);
+    // Edge from u to v
+    void addEdge(int u, int v) {
+        G[u].pb(v);
+        rev[v].pb(u);
     }
     vector<int> order;
+    vector<int> color;
     vector<bool> used;
-    void getorder(int v) {
+    vector<vector<int>> comp;
+
+    void dfsOrder(int v) {
         if (used[v]) return;
         used[v] = true;
         for (auto i : G[v])
-            getorder(i);
+            dfsOrder(i);
         order.pb(v);
     }
-    vector<int> color, cnt;
-    int ptr = 0;
-    void mark(int v) {
+    void dfsMark(int v, int c) {
+        if (color[v] != -1) return;
+        color[v] = c;
+        for (auto i : rev[v])
+            dfsMark(i, c);
+    }
+    void dfsComp(int v, int c) {
         if (used[v]) return;
         used[v] = true;
-        color[v] = ptr;
-        ++cnt[ptr];
+        comp[c].pb(v);
         for (auto i : rev[v])
-            mark(i);
+            dfsComp(i, c);
     }
-    pair<vector<int>, vector<int>> build() {
-        used = vector<bool>(sz(G));
+    void getOrder() {
+        used.assign(sz(G), false);
         order.clear();
         for (int i = 0; i < sz(G); ++i)
-            getorder(i);
+            dfsOrder(i);
         reverse(order);
-        used = vector<bool>(sz(G));
-        color = vector<int>(sz(G));
-        ptr = 0;
-        cnt.clear();
+    }
+    void buildColors() {
+        getOrder();
+        color.assign(sz(G), -1);
+        int ptr = 0;
+        for (auto i : order)
+            if (color[i] == -1)
+                dfsMark(i, ptr++);
+    }
+    void buildComp() {
+        getOrder();
+        used.assign(sz(G), false);
         for (auto i : order)
             if (!used[i]) {
-                cnt.pb(0);
-                mark(i);
-                ++ptr;
+                comp.pb(vector<int>());
+                dfsComp(i, sz(comp) - 1);
             }
-        return {color, cnt};
+    }
+    graph condens;
+    void buildCondensation(bool uni = false, bool self = false) {
+        buildColors();
+        condens.clear();
+        condens.resize(*max_element(all(color)) + 1);
+        for (int i = 0; i < sz(G); ++i)
+            for (auto v : G[i]) {
+                if (color[i] != color[v] || self)
+                    condens[color[i]].pb(color[v]);
+            }
+        if (uni) {
+            for (auto &i : condens) {
+                sort(i);
+                i.resize(unique(all(i)) - i.begin());
+            }
+        }
     }
 };
