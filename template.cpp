@@ -105,6 +105,7 @@ template<class T> inline void reverse(T &a) { reverse(all(a)); }
 template<class T, class U> inline istream& operator>>(istream& str, pair<T, U> &p) { return str >> p.f >> p.s; }
 template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (auto &i : a) str >> i; return str; }
 template<class T> inline T sorted(T a) { sort(a); return a; }
+template<class T> inline void iota(vector<T> &a, int start = 0) { iota(all(a), start); }
 
 signed main() {
     FAST; FIXED;
