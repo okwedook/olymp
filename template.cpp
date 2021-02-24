@@ -61,40 +61,38 @@ template<class T, class ...U> void print(const T &x, const U& ... u) { print(x);
 template<class T, class ...U> void println(const T &x, const U& ... u) { print(x); println(u...); }
 
 #ifdef DEBUG
-    template<class T> void pdbg(const T &x) { print(x); }
-    template<class T, class U> void pdbg(const pair<T, U> &p) {
-        print('{');
-        pdbg(p.f);
-        print(',');
-        pdbg(p.s); 
-        print('}');
-    }
-    void pdbg(const string &s) { print("\"" + s + "\""); }
-    template<class It> void pdbg(It begin, It end, string d);
-    template<class T> void pdbg(const vector<T> &a) { pdbg(all(a), ""); }
-    template<class T> void pdbg(const vector<vector<T>> &a) { pdbg(all(a), "\n"); }
-    template<class T> void pdbg(const vector<vector<vector<T>>> &a) { pdbg(all(a), "\n\n"); }
-    template<class T> void pdbg(const set<T> &a) { pdbg(all(a), ""); }
-    template<class T> void pdbg(const hashset<T> &a) { pdbg(all(a), ""); }
-    template<class T, class U> void pdbg(const map<T, U> &a) { pdbg(all(a), ""); }
-    template<class T, class U> void pdbg(const hashmap<T, U> &a) { pdbg(all(a), ""); }
-    template<class It> void pdbg(It begin, It end, string d) {
-        print('{');
-        if (begin != end) pdbg(*begin++);
+    template<class T> string pdbg(const T &x) { stringstream ss; ss << x; return ss.str(); }
+    template<class T, class U> string pdbg(const pair<T, U> &p) { return "{" + pdbg(p.f) + "," + pdbg(p.s) + "}"; }
+    string pdbg(const string &s) { return "\"" + s + "\""; }
+    template<class It> string pdbg(It begin, It end, string d);
+    template<class T> string pdbg(const vector<T> &a) { return pdbg(all(a), ""); }
+    template<class T> string pdbg(const vector<vector<T>> &a) { return pdbg(all(a), "\n"); }
+    template<class T> string pdbg(const vector<vector<vector<T>>> &a) { return pdbg(all(a), "\n\n"); }
+    template<class T> string pdbg(const set<T> &a) { return pdbg(all(a), ""); }
+    template<class T> string pdbg(const hashset<T> &a) { return pdbg(all(a), ""); }
+    template<class T, class U> string pdbg(const map<T, U> &a) { return pdbg(all(a), ""); }
+    template<class T, class U> string pdbg(const hashmap<T, U> &a) { return pdbg(all(a), ""); }
+    template<class It> string pdbg(It begin, It end, string d) {
+        string ans;
+        ans += "{";
+        if (begin != end) ans += pdbg(*begin++);
         while (begin != end)
-            print(",", d), pdbg(*begin++);
-        print('}');
+            ans += "," + d + pdbg(*begin++);
+        ans += "}";
+        return ans;
     }
-    template<class T> void dbgout(const T &x) { pdbg(x); }
+    template<class T> string dbgout(const T &x) { return pdbg(x); }
     template<class T, class... U>
-    void dbgout(T const &t, const U &... u) {
-        pdbg(t);
-        print(", ");
-        dbgout(u...);
+    string dbgout(T const &t, const U &... u) {
+        string ans = pdbg(t);
+        ans += ", ";
+        ans += dbgout(u...);
     }
-    #define dbg(...) print("[", #__VA_ARGS__, "] = "), dbgout(__VA_ARGS__), flushln()
+    #define dbg(...) print("[", #__VA_ARGS__, "] = ", dbgout(__VA_ARGS__)), flushln()
+    #define msg(...) print("[", __VA_ARGS__, "]"), flushln()
 #else
     #define dbg(...) 0
+    #define msg(...) 0
 #endif
 
 template<class T, class U> inline bool chmin(T &x, const U& y) { return y < x ? x = y, 1 : 0; }
@@ -105,11 +103,10 @@ template<class T> inline void reverse(T &a) { reverse(all(a)); }
 template<class T, class U> inline istream& operator>>(istream& str, pair<T, U> &p) { return str >> p.f >> p.s; }
 template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (auto &i : a) str >> i; return str; }
 template<class T> inline T sorted(T a) { sort(a); return a; }
-template<class T> inline void iota(vector<T> &a, int start = 0) { iota(all(a), start); }
 
 signed main() {
     FAST; FIXED;
-    
+
     #ifdef DEBUG
         cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
     #endif
