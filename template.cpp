@@ -87,6 +87,7 @@ template<class T, class ...U> void println(const T &x, const U& ... u) { print(x
         string ans = pdbg(t);
         ans += ", ";
         ans += dbgout(u...);
+        return ans;
     }
     #define dbg(...) print("[", #__VA_ARGS__, "] = ", dbgout(__VA_ARGS__)), flushln()
     #define msg(...) print("[", __VA_ARGS__, "]"), flushln()
