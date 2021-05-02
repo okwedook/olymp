@@ -1,11 +1,9 @@
-/*
-* Author: Mikhail Pogodin (okwedook)
-*
-* Fenwick tree implementation
-* Uses linear space and O(logn) time per operation.
-*
-* Check tasks: https://codeforces.com/gym/100246/problem/A
-*/
+// Author: Mikhail Pogodin (okwedook)
+//
+// Fenwick tree implementation
+// Uses linear space and O(logn) time per operation.
+//
+// Check tasks: https://codeforces.com/gym/100246/problem/A
 
 template<class T>
 struct Fenwick {
