@@ -29,8 +29,8 @@ void applyGauss(vector<vector<T>> &v) {
                 continue;
             }
         }
-        for (int i = ptr + 1; i < n; ++i) {
-            if (v[i][j] != 0) {
+        for (int i = 0; i < n; ++i) {
+            if (i != ptr && v[i][j] != 0) {
                 apply(i, ptr, -v[i][j] / v[ptr][j]);
             }
         }
