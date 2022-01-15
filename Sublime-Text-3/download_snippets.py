@@ -33,10 +33,11 @@ for full_name, content in contents:
     name = full_name[:full_name.rindex('.')]
     print("Creating snippet:", name)
     file = open(str(pathlib.Path.home()) + f"/.config/sublime-text/Packages/User/{name}.sublime-snippet", "w")
+
     file.write((    
         "<snippet>"
         "    <content><![CDATA["
-        f"{content.decode('unicode_escape')}"
+        f"{content.decode('utf8')}"
         "]]></content>"
         f"    <tabTrigger>{name}</tabTrigger>"
         "</snippet>"
