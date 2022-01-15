@@ -33,7 +33,6 @@ for full_name, content in contents:
     name = full_name[:full_name.rindex('.')]
     print("Creating snippet:", name)
     file = open(str(pathlib.Path.home()) + f"/.config/sublime-text/Packages/User/{name}.sublime-snippet", "w")
-
     file.write((    
         "<snippet>"
         "    <content><![CDATA["
