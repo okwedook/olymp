@@ -1,46 +1,51 @@
 #pragma GCC optimize("O3", "unroll-loops")
 #pragma GCC target("sse4.2")
 
-#include <iostream>
-#include <iomanip>
-#include <vector>
 #include <algorithm>
-#include <cmath>
-#include <string>
-#include <map>
-#include <unordered_map>
-#include <set>
-#include <unordered_set>
 #include <bitset>
-#include <sstream>
-#include <deque>
-#include <queue>
-#include <complex>
-#include <random>
 #include <cassert>
 #include <chrono>
+#include <cmath>
+#include <complex>
+#include <deque>
 #include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
 
 using namespace std;
 
-#define FAST ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0)
-#define FIXED cout << fixed << setprecision(12)
-#define ll long long
-#define ld long double
-#define pii pair<int, int>
-#define pll pair<ll, ll>
-#define graph vector<vector<int>>
+void initIO() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    cout << fixed << setprecision(12);
+}
+
+using ll = long long;
+using ld = long double;
+using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using graph = vector<vector<int>>;
+
+const ld eps = 1e-9;
+const int mod = 1000000007;
+const ll inf = 3000000000000000007ll;
+
 #define pb push_back
 #define pf push_front
 #define popb pop_back
 #define popf pop_front
 #define f first
 #define s second
-#define hashmap unordered_map
-#define hashset unordered_set
-#define eps 1e-9
-#define mod 1000000007
-#define inf 3000000000000000007ll
 #define sz(a) signed((a).size())
 #define all(a) (a).begin(), (a).end()
 #define rall(a) (a).rbegin(), (a).rend()
@@ -61,24 +66,50 @@ template<class T, class ...U> void print(const T &x, const U& ... u) { print(x);
 template<class T, class ...U> void println(const T &x, const U& ... u) { print(x); println(u...); }
 
 #ifdef DEBUG
-    template<class T> string pdbg(const T &x) { stringstream ss; ss << x; return ss.str(); }
-    template<class T, class U> string pdbg(const pair<T, U> &p) { return "{" + pdbg(p.f) + "," + pdbg(p.s) + "}"; }
-    string pdbg(const string &s) { return "\"" + s + "\""; }
-    template<class It> string pdbg(It begin, It end, string d);
-    template<class T> string pdbg(const vector<T> &a) { return pdbg(all(a), ""); }
-    template<class T> string pdbg(const vector<vector<T>> &a) { return pdbg(all(a), "\n"); }
-    template<class T> string pdbg(const vector<vector<vector<T>>> &a) { return pdbg(all(a), "\n\n"); }
-    template<class T> string pdbg(const set<T> &a) { return pdbg(all(a), ""); }
-    template<class T> string pdbg(const hashset<T> &a) { return pdbg(all(a), ""); }
-    template<class T, class U> string pdbg(const map<T, U> &a) { return pdbg(all(a), ""); }
-    template<class T, class U> string pdbg(const hashmap<T, U> &a) { return pdbg(all(a), ""); }
-    template<class It> string pdbg(It begin, It end, string d) {
+    namespace TypeTraits {
+        template<class T> constexpr bool IsString = false;
+        template<> constexpr bool IsString<string> = true;
+        template<class T, class = void> struct IsIterableStruct : false_type{};
+        template<class T>
+        struct IsIterableStruct<
+            T,
+            void_t<
+                decltype(begin(declval<T>())),
+                decltype(end(declval<T>()))
+            >
+        > : true_type{};
+        template<class T> constexpr bool IsIterable = IsIterableStruct<T>::value;
+        template<class T> constexpr bool NonStringIterable = !IsString<T> && IsIterable<T>;
+        template<class T> constexpr bool DoubleIterable = IsIterable<decltype(*begin(declval<T>()))>;
+    };
+    template<class T>
+    auto pdbg(const T &x) -> enable_if_t<!TypeTraits::NonStringIterable<T>, string> {
+        stringstream ss;
+        ss << x;
+        return ss.str();
+    }
+    template<class T, class U>
+    string pdbg(const pair<T, U> &x) {
+        return "{" + pdbg(x.f) + "," + pdbg(x.s) + "}";
+    }
+    string pdbg(const string &x) {
+        return "\"" + x + "\"";
+    }
+    template<class T>
+    auto pdbg(const T &x) -> enable_if_t<TypeTraits::NonStringIterable<T>, string> {
+        auto begin = x.begin();
+        auto end = x.end();
+        string del = "";
+        if (TypeTraits::DoubleIterable<T>) {
+            del = "\n";
+        }
         string ans;
-        ans += "{";
+        ans += "{" + del;
         if (begin != end) ans += pdbg(*begin++);
-        while (begin != end)
-            ans += "," + d + pdbg(*begin++);
-        ans += "}";
+        while (begin != end) {
+            ans += "," + del + pdbg(*begin++);
+        }
+        ans += del + "}";
         return ans;
     }
     template<class T> string dbgout(const T &x) { return pdbg(x); }
@@ -106,8 +137,8 @@ template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (
 template<class T> inline T sorted(T a) { sort(a); return a; }
 
 signed main() {
-    FAST; FIXED;
-
+    initIO();
+    
     #ifdef DEBUG
         cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
     #endif
