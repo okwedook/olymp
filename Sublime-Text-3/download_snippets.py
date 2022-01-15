@@ -36,7 +36,7 @@ for full_name, content in contents:
     file.write((    
         "<snippet>"
         "    <content><![CDATA["
-        f"{content.decode('unicode_escape')}"
+        f"{content.decode('utf8')}"
         "]]></content>"
         f"    <tabTrigger>{name}</tabTrigger>"
         "</snippet>"
