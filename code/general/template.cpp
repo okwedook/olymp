@@ -82,6 +82,16 @@ template<class T, class ...U> void println(const T &x, const U& ... u) { print(x
         template<class T> constexpr bool NonStringIterable = !IsString<T> && IsIterable<T>;
         template<class T> constexpr bool DoubleIterable = IsIterable<decltype(*begin(declval<T>()))>;
     };
+    // Declaration (for cross-recursion)
+    template<class T>
+    auto pdbg(const T&x) -> enable_if_t<!TypeTraits::NonStringIterable<T>, string>;
+    string pdbg(const string &x);
+    template<class T>
+    auto pdbg(const T &x) -> enable_if_t<TypeTraits::NonStringIterable<T>, string>;
+    template<class T, class U>
+    string pdbg(const pair<T, U> &x);
+
+    // Implementation
     template<class T>
     auto pdbg(const T &x) -> enable_if_t<!TypeTraits::NonStringIterable<T>, string> {
         stringstream ss;
