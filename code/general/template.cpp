@@ -49,6 +49,7 @@ const ll inf = 3000000000000000007ll;
 #define sz(a) signed((a).size())
 #define all(a) (a).begin(), (a).end()
 #define rall(a) (a).rbegin(), (a).rend()
+#define by_key(...) [](const auto &a, const auto &b) { return a.__VA_ARGS__ < b.__VA_ARGS__; }
 
 #ifdef DEBUG
     mt19937 gen(857204);
