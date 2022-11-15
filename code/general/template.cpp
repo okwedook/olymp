@@ -20,6 +20,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
+#include <ext/random>
 
 using namespace std;
 
@@ -52,9 +53,9 @@ const ll inf = 3000000000000000007ll;
 #define by_key(...) [](const auto &a, const auto &b) { return a.__VA_ARGS__ < b.__VA_ARGS__; }
 
 #ifdef DEBUG
-    mt19937 gen(857204);
+    __gnu_cxx::sfmt19937 gen(857204);
 #else
-    mt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
+    __gnu_cxx::sfmt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
 #endif
 
 void flush() { cout << flush; }
