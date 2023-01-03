@@ -1,0 +1,16 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": ".vscode"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.*": true,
+        }
+    }
+}
+

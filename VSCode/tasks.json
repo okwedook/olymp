@@ -1,0 +1,41 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "CPP build and run",
+            "type": "shell",
+            "command": "g++ -std=c++20 -D DEBUG -D_GLIBCXX_DEBUG -O2 ${fileBasename} -o .${fileBasenameNoExtension} && timeout 3s ./.${fileBasenameNoExtension} <input.txt >output.txt",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "problemMatcher": {
+        "pattern":[
+            {
+                "regexp": "^(.*):(\\d+):(\\d+): (error|warning): (.*)$",
+                "file": 1,
+                "line": 2,
+                "column": 3,
+                "severity": 4,
+                "message": 5
+            }
+        ],
+        "owner": "cpp"
+    },
+    "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+    },
+    "options": {
+        "cwd": "${workspaceFolder}"
+    }
+}
+
