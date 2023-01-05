@@ -1,3 +1,5 @@
+![Unit tests](https://github.com/okwedook/olymp/actions/workflows/unittest.yml/badge.svg)
+
 # olymp
 My collection of algorithms and data structures
 
