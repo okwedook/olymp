@@ -11,9 +11,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
-        cxx: [g++]
-        stdcxx: [17, 20]
+        os: [ ubuntu-latest ]
+        cxx: [ g++ ]
+        stdcxx: [ 17, 20 ]
 
     steps:
       - uses: actions/checkout@v3
