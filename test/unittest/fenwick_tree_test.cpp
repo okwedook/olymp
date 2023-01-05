@@ -1,5 +1,5 @@
-#include <code/general/base_template.h>
-#include <code/data-structures/FenwickTree.cpp>
+#include <code/general/base_template.hpp>
+#include <code/data-structures/FenwickTree.hpp>
 
 #include <gtest/gtest.h>
 

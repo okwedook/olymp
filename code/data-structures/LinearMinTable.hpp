@@ -1,4 +1,4 @@
-#include "SparseIndexTable.h"
+#include "SparseIndexTable.hpp"
 
 //works in linear time and memory online
 template<class T>

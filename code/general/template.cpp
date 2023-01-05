@@ -1,6 +1,6 @@
-#include "base_template.h"
-#include "custom_io.h"
-#include "debugger.h"
+#include "base_template.hpp"
+#include "custom_io.hpp"
+#include "debugger.hpp"
 
 signed main() {
     initIO();
