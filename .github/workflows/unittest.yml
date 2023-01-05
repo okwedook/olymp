@@ -1,0 +1,34 @@
+name: UnitTest
+
+on:
+  push:
+    branches:
+      - '*'
+    pull_request:
+
+jobs:
+  gtest:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        cxx: [g++]
+        stdcxx: [17, 20]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      
+      - name: run unit tests
+        run: |
+          cd test/unittest
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_CXX_STANDARD=$STDCXX
+          make
+          ctest
+        env:
+          CXX: ${{ matrix.cxx }}
+          STDCXX: ${{ matrix.stdcxx }}
+          GTEST_COLOR: "1"
