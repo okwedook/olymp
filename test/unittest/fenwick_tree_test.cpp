@@ -1,4 +1,4 @@
-#include <code/general/template.cpp>
+#include <code/general/base_template.h>
 #include <code/data-structures/FenwickTree.cpp>
 
 #include <gtest/gtest.h>
