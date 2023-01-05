@@ -58,14 +58,14 @@ const ll inf = 3000000000000000007ll;
     __gnu_cxx::sfmt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
 #endif
 
-void flush() { cout << flush; }
-void flushln() { cout << endl; }
-void println() { cout << '\n'; }
-template<class T> void print(const T &x) { cout << x; }
-template<class T> void read(T &x) { cin >> x; }
-template<class T, class ...U> void read(T &x, U& ... u) { read(x); read(u...); }
-template<class T, class ...U> void print(const T &x, const U& ... u) { print(x); print(u...); }
-template<class T, class ...U> void println(const T &x, const U& ... u) { print(x); println(u...); }
+// void flush() { cout << flush; }
+// void flushln() { cout << endl; }
+// void println() { cout << '\n'; }
+// template<class T> void print(const T &x) { cout << x; }
+// template<class T> void read(T &x) { cin >> x; }
+// template<class T, class ...U> void read(T &x, U& ... u) { read(x); read(u...); }
+// template<class T, class ...U> void print(const T &x, const U& ... u) { print(x); print(u...); }
+// template<class T, class ...U> void println(const T &x, const U& ... u) { print(x); println(u...); }
 
 #ifdef DEBUG
     namespace TypeTraits {
@@ -148,11 +148,11 @@ template<class T, class U> inline istream& operator>>(istream& str, pair<T, U> &
 template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (auto &i : a) str >> i; return str; }
 template<class T> inline T sorted(T a) { sort(a); return a; }
 
-signed main() {
-    initIO();
+// signed main() {
+//     initIO();
     
-    #ifdef DEBUG
-        cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
-    #endif
-    return 0;
-}
+//     #ifdef DEBUG
+//         cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
+//     #endif
+//     return 0;
+// }
