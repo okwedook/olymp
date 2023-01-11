@@ -1,9 +1,11 @@
-void initIO() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
-    cout << fixed << setprecision(12);
-}
+class InitIO {
+    InitIO() {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+        cout << fixed << setprecision(12);
+    }
+} Initter;
 
 void flush() { cout << flush; }
 void flushln() { cout << endl; }
