@@ -5,6 +5,11 @@ struct InitIO {
         cout.tie(0);
         cout << fixed << setprecision(12);
     }
+    ~InitIO() {
+        #ifdef DEBUG
+            cerr << "Runtime is: " << clock() * 1.0 / CLOCKS_PER_SEC << endl;
+        #endif
+    }
 } Initter;
 
 void flush() { cout << flush; }
