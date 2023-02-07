@@ -16,14 +16,57 @@ def get_all_files_from_directory(repository, directory):
             files.update(get_all_files_from_directory(repository, file.path))
     return files
 
-g = Github(login_or_token=os.environ["GITHUB_TOKEN"]) # TODO: remove token
+import argparse
 
-repo_name = "okwedook/olymp" # TODO: add parameter for repo
+parser = argparse.ArgumentParser(description="""
+    Download snippets from a git repo
+    Put github token to ~/.github/snippets_token
+""")
+parser.add_argument(
+    "--local",
+    help="Get changes from a local repo",
+    action='store_true'
+)
+parser.add_argument(
+    "--use-env-token",
+    help="Use environment variable token instead of ~/.github/snippets_token",
+    action='store_true'
+)
+parser.add_argument(
+    "--sublime-text",
+    help="Change snippets for Sublime Text",
+    action='store_true'
+)
 
-repo = g.get_repo(repo_name)
-print(f"Got repo: {repo_name}")
+args = parser.parse_args()
 
-contents = get_all_files_from_directory(repo, "code")
+if args.local:
+    contents = {}
+    path = os.path.dirname(__file__) + "/../../code"
+    print(path)
+    walker = os.walk(path)
+    for (dir, subdir, file_names) in walker:
+        for file_name in file_names:
+            print(f"Read locally {file_name}")
+            contents[file_name] = open(os.path.join(dir, file_name)).read()
+else:
+    if args.use_env_token:
+        token = os.environ["GITHUB_TOKEN"]
+    else:
+        path = "~/.github/snippets_token"
+        path = os.path.expanduser(path)
+        token = str(open(path).read()).rstrip('\n')
+
+
+    g = Github(login_or_token=token)
+
+    repo_name = "okwedook/olymp"
+
+    repo = g.get_repo(repo_name)
+    print(f"Got repo: {repo_name}")
+
+    contents = get_all_files_from_directory(repo, "code")
+
 dependency_graph = {}
 
 for file_name, content in contents.items():
@@ -62,13 +105,14 @@ for file_name, content in contents.items():
     if file_name.lower() == 'readme.md':
         continue
     name = file_name[:file_name.rindex('.')]
-    print("Creating snippet:", name)
-    file = open(str(pathlib.Path.home()) + f"/.config/sublime-text/Packages/User/{name}.sublime-snippet", "w")
-    file.write((    
-        "<snippet>"
-        "    <content><![CDATA["
-        f"{content}"
-        "]]></content>"
-        f"    <tabTrigger>{name}</tabTrigger>"
-        "</snippet>"
-    ))
+    if args.sublime_text:
+        print("(Sublime Text) Creating snippet:", name)
+        file = open(str(pathlib.Path.home()) + f"/.config/sublime-text/Packages/User/{name}.sublime-snippet", "w")
+        file.write((    
+            "<snippet>"
+            "    <content><![CDATA["
+            f"{content}"
+            "]]></content>"
+            f"    <tabTrigger>{name}</tabTrigger>"
+            "</snippet>"
+        ))
