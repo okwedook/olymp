@@ -40,7 +40,6 @@ const ll inf = 3000000000000000007ll;
 #define popf pop_front
 #define f first
 #define s second
-#define sz(a) signed((a).size())
 #define all(a) (a).begin(), (a).end()
 #define rall(a) (a).rbegin(), (a).rend()
 #define by_key(...) [](const auto &a, const auto &b) { return a.__VA_ARGS__ < b.__VA_ARGS__; }
@@ -48,11 +47,12 @@ const ll inf = 3000000000000000007ll;
 #ifdef DEBUG
     __gnu_cxx::sfmt19937 gen(857204);
 #else
-    __gnu_cxx::sfmt19937 gen(chrono::high_resolution_clock::now().time_since_epoch().count());
+    __gnu_cxx::sfmt19937 gen(int(chrono::high_resolution_clock::now().time_since_epoch().count()));
 #endif
 
 template<class T, class U> inline bool chmin(T &x, const U& y) { return y < x ? x = y, 1 : 0; }
 template<class T, class U> inline bool chmax(T &x, const U& y) { return y > x ? x = y, 1 : 0; }
+template<class T> inline int sz(const T &a) { return a.size(); }
 template<class T> inline void sort(T &a) { sort(all(a)); }
 template<class T> inline void rsort(T &a) { sort(rall(a)); }
 template<class T> inline void reverse(T &a) { reverse(all(a)); }

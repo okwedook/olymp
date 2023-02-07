@@ -30,7 +30,7 @@ struct Fenwick {
     // Sum at [0, r]
     T get(int r) {
         T ans = 0;
-        for (; r >= 0; r = (r & r + 1) - 1)
+        for (; r >= 0; r = (r & (r + 1)) - 1)
             ans += sum[r];
         return ans;
     }
