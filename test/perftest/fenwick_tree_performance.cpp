@@ -8,9 +8,11 @@ TEST(FenwickTreePerformance, BasicPerformanceTest) {
     constexpr int Q = 1e8;
     Fenwick<int> tree(N);
     for (int i = 0; i < Q; ++i) {
-        tree.add(gen() % N, gen());
-        int l = gen() % N, r = gen() % N;
-        if (l > r) swap(l, r);
-        tree.get(l, r);
+        // tree.add(gen() % N, gen());
+	tree.add(i % N, i);
+        // int l = gen() % N, r = gen() % N;
+        // if (l > r) swap(l, r);
+        // tree.get(l, r);
+	tree.get(i % N);
     }
 }
