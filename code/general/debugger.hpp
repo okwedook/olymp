@@ -1,4 +1,4 @@
-#ifdef DEBUG
+#if __cplusplus >= 201703L
     namespace TypeTraits {
         template<class T> constexpr bool IsString = false;
         template<> constexpr bool IsString<string> = true;
@@ -63,6 +63,9 @@
         ans += dbgout(u...);
         return ans;
     }
+#endif
+
+#ifdef DEBUG
     #define dbg(...) print("[", #__VA_ARGS__, "] = ", dbgout(__VA_ARGS__)), flushln()
     #define msg(...) print("[", __VA_ARGS__, "]"), flushln()
 #else
