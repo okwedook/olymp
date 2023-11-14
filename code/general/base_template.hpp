@@ -1,5 +1,7 @@
-#pragma GCC optimize("O3", "unroll-loops")
-#pragma GCC target("sse4.2")
+#if defined(__GNUC__) && !defined(__clang__)
+    #pragma GCC optimize("O3", "unroll-loops")
+    #pragma GCC target("sse4.2")
+#endif
 
 #include <algorithm>
 #include <bitset>
