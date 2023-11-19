@@ -20,5 +20,8 @@ include_directories(.)
 include_directories(../..)
 
 add_executable(FenwickTreeTest fenwick_tree_test.cpp)
+add_executable(GeneralTreapTest general_treap_test.cpp)
 target_link_libraries(FenwickTreeTest gtest gtest_main)
+target_link_libraries(GeneralTreapTest gtest gtest_main)
+gtest_discover_tests(GeneralTreapTest)
 gtest_discover_tests(FenwickTreeTest)
