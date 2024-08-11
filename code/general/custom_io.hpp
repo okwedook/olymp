@@ -17,9 +17,8 @@ template<class T> inline istream& operator>>(istream& str, vector<T> &a) { for (
 
 void flush() { cout << flush; }
 void flushln() { cout << endl; }
-void println() { cout << '\n'; }
 template<class T> void print(const T &x) { cout << x; }
 template<class T> void read(T &x) { cin >> x; }
-template<class T, class ...U> void read(T &x, U& ... u) { read(x); read(u...); }
-template<class T, class ...U> void print(const T &x, const U& ... u) { print(x); print(u...); }
-template<class T, class ...U> void println(const T &x, const U& ... u) { print(x); println(u...); }
+template<class T, class ...U> void read(T &x, U&... u) { read(x); read(u...); }
+template<class T, class ...U> void print(const T &x, const U&... u) { print(x); print(u...); }
+template<class ...T> void println(const T&... u) { print(u..., '\n'); }
