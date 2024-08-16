@@ -1,30 +1,6 @@
-struct node {
-    int val = 0, ind = 0;
-    int p = 0;
-    node() {}
-    void upd(int x) {
-        val += x;
-        p += x;
-    }
-    void upd(const node &t) {
-        upd(t.p);
-    }
-    bool updated() const {
-        return p != 0;
-    }
-    void unupdate() {
-        p = 0;
-    }
-};
+#include "RangeAddPointMax.hpp"
 
-node merge(const node &a, const node &b) {
-    node ans;
-    if (a.val >= b.val) ans.val = a.val, ans.ind = a.ind;
-    else ans.val = b.val, ans.ind = b.ind;
-    return ans;
-}
-
-template<class node, node (*merge)(const node&, const node&) = merge>
+template<class node, node (*merge)(const node&, const node&) = node::merge>
 struct Tree {
     int n = 1;
     vector<node> t;
