@@ -37,6 +37,11 @@ parser.add_argument(
     help="Change snippets for Sublime Text",
     action='store_true'
 )
+parser.add_argument(
+    "--stdout",
+    help="Print built templates to stdout",
+    action='store_true'
+)
 
 args = parser.parse_args()
 
@@ -70,11 +75,13 @@ else:
 dependency_graph = {}
 
 for file_name, content in contents.items():
-    dependencies = re.findall('#include "(.*)"', content)
+    include_pattern = '#include "(.*)"\n'
+    dependencies = re.findall(include_pattern, content, re.MULTILINE)
+    dependency_graph[file_name] = dependencies
+    contents[file_name] = re.sub(include_pattern, '', content, re.MULTILINE)
 
     print(file_name, "depends on", dependencies)
 
-    dependency_graph[file_name] = dependencies
 
 visit_order = []
 
@@ -85,23 +92,14 @@ def dfs(file_name):
         dfs(dependency_file)
     visit_order.append(file_name)
 
+joined_contents = {}
+
 for file_name in contents:
+    visit_order = []
     dfs(file_name)
+    joined_contents[file_name] = ''.join(contents[file_name] for file_name in visit_order)
 
-visit_order.reverse()
-
-finalized = {}
-
-
-for file_name in visit_order:
-    for dependency_file in dependency_graph[file_name]:
-        contents[file_name] = re.sub(
-            f'#include "{dependency_file}"',
-            lambda x: contents[dependency_file],
-            contents[file_name]
-        )
-
-for file_name, content in contents.items():
+for file_name, content in joined_contents.items():
     if file_name.lower() == 'readme.md':
         continue
     name = file_name[:file_name.rindex('.')]
@@ -116,3 +114,6 @@ for file_name, content in contents.items():
             f"    <tabTrigger>{name}</tabTrigger>"
             "</snippet>"
         ))
+    if args.stdout:
+        print(f"Template for {file_name}")
+        print(content)
