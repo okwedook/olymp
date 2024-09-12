@@ -1,0 +1,53 @@
+name: PerformanceTest
+
+on:
+  push:
+    pull_request:
+
+jobs:
+  gtest:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        cxx: [ g++ ]
+        stdcxx: [ 17, 20 ]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - run: echo ${{ toJSON(github) }}
+      - run: echo "BRANCH=$(git branch --show-current)" >> $GITHUB_ENV
+      - run: echo "DEPTH=${{ github.event.pull_request.commits }}" >> $GITHUB_ENV
+
+      - run: git checkout HEAD~$DEPTH
+
+      - name: Run tests on master
+        run: |
+          cd test/perftest
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_CXX_STANDARD=$STDCXX
+          make
+          ctest -repeat-until-failure 5 > was.out
+        env:
+          CXX: ${{ matrix.cxx }}
+          STDCXX: ${{ matrix.stdcxx }}
+
+      - run: git checkout $BRANCH
+
+      - name: Run tests on branch
+        run: |
+          cmake .. -DCMAKE_CXX_STANDARD=$STDCXX
+          make
+          ctest -repeat-until-failure 5 > now.out
+        env:
+          CXX: ${{ matrix.cxx }}
+          STDCXX: ${{ matrix.stdcxx }}
+
+      - name: Compare performance
+        run: |
+          python3 ../compare_runtimes.py --was was.out --now now.out --limit-percent 1
+
