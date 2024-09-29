@@ -9,7 +9,7 @@ namespace math {
         if (n >= 2) ans.pb(2);
         n = (n - 1) / 2;
         vector<bool> used(n + 1, 1);
-        for (int i = 1; 2 * i * (i + 1) < n; ++i)
+        for (int i = 1; 2 * i * (i + 1) <= n; ++i)
             for (int j = i, v; v = 2 * i * j + i + j, v <= n; ++j)
                 used[v] = false;
         for (int i = 1; i < sz(used); ++i)
