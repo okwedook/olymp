@@ -19,9 +19,17 @@ include(GoogleTest)
 include_directories(.)
 include_directories(../..)
 
+add_executable(CountPrimesTest count_primes_test.cpp)
 add_executable(FenwickTreeTest fenwick_tree_test.cpp)
 add_executable(GeneralTreapTest general_treap_test.cpp)
+add_executable(GeneratePrimesTest generate_primes_test.cpp)
+
+target_link_libraries(CountPrimesTest gtest gtest_main)
 target_link_libraries(FenwickTreeTest gtest gtest_main)
 target_link_libraries(GeneralTreapTest gtest gtest_main)
-gtest_discover_tests(GeneralTreapTest)
+target_link_libraries(GeneratePrimesTest gtest gtest_main)
+
+gtest_discover_tests(CountPrimesTest)
 gtest_discover_tests(FenwickTreeTest)
+gtest_discover_tests(GeneralTreapTest)
+gtest_discover_tests(GeneratePrimesTest)
