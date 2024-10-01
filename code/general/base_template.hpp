@@ -1,8 +1,3 @@
-#if defined(__GNUC__) && !defined(__clang__)
-    #pragma GCC optimize("O3", "unroll-loops")
-    #pragma GCC target("sse4.2")
-#endif
-
 #include <algorithm>
 #include <bitset>
 #include <cassert>
@@ -23,6 +18,11 @@
 #include <unordered_set>
 #include <vector>
 #include <ext/random>
+
+#if defined(__GNUC__) && !defined(__clang__)
+    #pragma GCC optimize("O3", "unroll-loops")
+    #pragma GCC target("sse4.2")
+#endif
 
 using namespace std;
 
