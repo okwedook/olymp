@@ -1,4 +1,3 @@
-from github import Github
 import time
 import os
 import pathlib
@@ -55,6 +54,7 @@ if args.local:
             print(f"Read locally {file_name}")
             contents[file_name] = open(os.path.join(dir, file_name)).read()
 else:
+    from github import Github
     if args.use_env_token:
         token = os.environ["GITHUB_TOKEN"]
     else:
