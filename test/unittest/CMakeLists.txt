@@ -8,7 +8,7 @@ if(NOT "${CMAKE_CXX_STANDARD}")
 endif()
 # set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_compile_options(-Wall -Wextra -Wshadow -Wconversion -Wno-sign-conversion)
+add_compile_options(-O2 -Wall -Wextra -Wshadow -Wconversion -Wno-sign-conversion)
 # add_compile_options(-fsanitize=undefined,address -fno-sanitize-recover=all)
 
 enable_testing()
