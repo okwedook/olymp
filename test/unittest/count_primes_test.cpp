@@ -4,6 +4,10 @@
 
 #include <gtest/gtest.h>
 
+ll count_primes(ll n) {
+    return PrimeCounter(n).countPrimes();
+}
+
 TEST(CountPrimes, SmallTest) {
     for (int N = 1; N <= 500; ++N) {
         ASSERT_EQ(math::genprimes(N).size(), count_primes(N));
